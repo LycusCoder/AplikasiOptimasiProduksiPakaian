@@ -1,4 +1,3 @@
-# logic.py
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
@@ -6,7 +5,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 def hitung_produksi(total_kain, jenis_kain, dataset, ukuran_fokus=None, optimasi_sisa=False, persentase=None):
     """
     Fungsi untuk menghitung produksi dengan Greedy Algorithm + variasi minimal.
-    
+
     Args:
         total_kain: Total kain dalam meter
         jenis_kain: Jenis kain yang dipilih
@@ -14,7 +13,7 @@ def hitung_produksi(total_kain, jenis_kain, dataset, ukuran_fokus=None, optimasi
         ukuran_fokus: List ukuran yang difokuskan (None untuk semua ukuran)
         optimasi_sisa: True untuk optimasi sisa kain
         persentase: Dict {ukuran: nilai_persen} dari input pengguna
-        
+
     Returns:
         Tuple: (hasil_produksi, total_keuntungan, sisa_kain, fig)
     """
@@ -32,89 +31,55 @@ def hitung_produksi(total_kain, jenis_kain, dataset, ukuran_fokus=None, optimasi
             if not ukuran_tersedia:
                 raise ValueError("Tidak ada ukuran yang valid untuk difokuskan")
 
-        # Jika ada input persentase, gunakan itu
-        if persentase and any(v > 0 for v in persentase.values()):
-            hasil_produksi = {}
-            total_keuntungan = 0
-            sisa_kain = total_kain
+        hasil_produksi = {}
+        total_keuntungan = 0
+        sisa_kain = total_kain
 
-            # Validasi jumlah persentase <= 100%
+        # Jika ada persentase, gunakan itu terlebih dahulu
+        if persentase and any(v > 0 for v in persentase.values()):
             total_persen = sum(float(persentase.get(u, 0)) for u in ukuran_tersedia)
             if total_persen > 100:
                 raise ValueError("Total persentase tidak boleh melebihi 100%")
 
             for ukuran in ukuran_tersedia:
-                try:
-                    persen = float(persentase.get(ukuran, 0))
-                except ValueError:
-                    continue
-
+                persen = float(persentase.get(ukuran, 0))
                 if persen <= 0:
                     continue
-
                 alokasi_meter = total_kain * (persen / 100)
                 jumlah_pakaian = int(alokasi_meter // meter_per_ukuran[ukuran])
-
                 if jumlah_pakaian > 0:
                     hasil_produksi[ukuran] = jumlah_pakaian
                     total_keuntungan += jumlah_pakaian * keuntungan_per_pakaian[ukuran]
                     sisa_kain -= jumlah_pakaian * meter_per_ukuran[ukuran]
 
-            # Buat grafik dan kembalikan hasil
-            fig = buat_grafik(hasil_produksi, meter_per_ukuran, total_kain, sisa_kain)
-            return hasil_produksi, total_keuntungan, sisa_kain, fig
+            # Jika masih ada sisa kain, lanjutkan dengan greedy
+            if sisa_kain > 0:
+                rasio = {}
+                for ukuran in ukuran_tersedia:
+                    biaya = meter_per_ukuran[ukuran] * harga_per_meter
+                    keuntungan_bersih = keuntungan_per_pakaian[ukuran] - biaya
+                    rasio[ukuran] = keuntungan_bersih / meter_per_ukuran[ukuran]
 
-        # Hitung rasio keuntungan bersih per meter
-        rasio = {}
-        for ukuran in ukuran_tersedia:
-            biaya_produksi = meter_per_ukuran[ukuran] * harga_per_meter
-            keuntungan_bersih = keuntungan_per_pakaian[ukuran] - biaya_produksi
-            rasio[ukuran] = keuntungan_bersih / meter_per_ukuran[ukuran]
+                urutan = sorted(rasio.items(), key=lambda x: x[1], reverse=True)
 
-        # Urutkan ukuran berdasarkan rasio tertinggi
-        urutan_produksi = sorted(rasio.items(), key=lambda x: x[1], reverse=True)
+                for ukuran, _ in urutan:
+                    jumlah_pakaian = int(sisa_kain // meter_per_ukuran[ukuran])
+                    if jumlah_pakaian > 0:
+                        hasil_produksi[ukuran] = hasil_produksi.get(ukuran, 0) + jumlah_pakaian
+                        total_keuntungan += jumlah_pakaian * keuntungan_per_pakaian[ukuran]
+                        sisa_kain -= jumlah_pakaian * meter_per_ukuran[ukuran]
 
-        hasil_produksi = {}
-        total_keuntungan = 0
-        sisa_kain = total_kain
-
-        # Algoritma Greedy dengan optimasi sisa
-        if optimasi_sisa:
-            best_combination = {}
-            min_sisa = total_kain
-            max_keuntungan = 0
-
-            def cari_kombinasi(index, current_kain, current_hasil, current_keuntungan):
-                nonlocal best_combination, min_sisa, max_keuntungan
-                if index >= len(urutan_produksi):
-                    sisa = current_kain
-                    if sisa < min_sisa or (sisa == min_sisa and current_keuntungan > max_keuntungan):
-                        min_sisa = sisa
-                        max_keuntungan = current_keuntungan
-                        best_combination = current_hasil.copy()
-                    return
-
-                ukuran, _ = urutan_produksi[index]
-                meter_ukuran = meter_per_ukuran[ukuran]
-                max_pakaian = int(current_kain // meter_ukuran)
-
-                for j in range(max_pakaian, -1, -1):
-                    if j == 0 and not current_hasil:
-                        continue  # Skip jika tidak menghasilkan apa-apa
-                    new_kain = current_kain - j * meter_ukuran
-                    new_hasil = current_hasil.copy()
-                    if j > 0:
-                        new_hasil[ukuran] = j
-                    new_keuntungan = current_keuntungan + j * keuntungan_per_pakaian[ukuran]
-                    cari_kombinasi(index + 1, new_kain, new_hasil, new_keuntungan)
-
-            cari_kombinasi(0, total_kain, {}, 0)
-            hasil_produksi = best_combination
-            total_keuntungan = max_keuntungan
-            sisa_kain = min_sisa
         else:
-            # Algoritma Greedy standar
-            for ukuran, _ in urutan_produksi:
+            # Jika tidak ada persentase, gunakan algoritma Greedy biasa
+            rasio = {}
+            for ukuran in ukuran_tersedia:
+                biaya = meter_per_ukuran[ukuran] * harga_per_meter
+                keuntungan_bersih = keuntungan_per_pakaian[ukuran] - biaya
+                rasio[ukuran] = keuntungan_bersih / meter_per_ukuran[ukuran]
+
+            urutan = sorted(rasio.items(), key=lambda x: x[1], reverse=True)
+
+            for ukuran, _ in urutan:
                 jumlah_pakaian = int(sisa_kain // meter_per_ukuran[ukuran])
                 if jumlah_pakaian > 0:
                     hasil_produksi[ukuran] = jumlah_pakaian
@@ -126,9 +91,17 @@ def hitung_produksi(total_kain, jenis_kain, dataset, ukuran_fokus=None, optimasi
                         total_keuntungan += keuntungan_per_pakaian[ukuran]
                         sisa_kain -= meter_per_ukuran[ukuran]
 
-        # Buat grafik
-        fig = buat_grafik(hasil_produksi, meter_per_ukuran, total_kain, sisa_kain)
+        # Jika optimasi_sisa aktif, tambahkan pakaian dari ukuran termurah
+        if optimasi_sisa and sisa_kain > 0:
+            # Cari ukuran yang menggunakan kain paling sedikit
+            ukuran_termurah = min(ukuran_tersedia, key=lambda u: meter_per_ukuran[u])
+            max_tambahan = int(sisa_kain // meter_per_ukuran[ukuran_termurah])
+            if max_tambahan > 0:
+                hasil_produksi[ukuran_termurah] = hasil_produksi.get(ukuran_termurah, 0) + max_tambahan
+                total_keuntungan += max_tambahan * keuntungan_per_pakaian[ukuran_termurah]
+                sisa_kain -= max_tambahan * meter_per_ukuran[ukuran_termurah]
 
+        fig = buat_grafik(hasil_produksi, meter_per_ukuran, total_kain, sisa_kain)
         return hasil_produksi, total_keuntungan, sisa_kain, fig
 
     except Exception as e:
@@ -162,11 +135,11 @@ def buat_grafik(hasil_produksi, meter_per_ukuran, total_kain, sisa_kain):
 def rekomendasi_kain(dataset, produk_target):
     """
     Memberikan rekomendasi jenis kain berdasarkan produk yang akan dibuat
-    
+
     Args:
         dataset: Dataset parameter kain
         produk_target: Jenis produk yang akan dibuat (e.g. "Kemeja")
-        
+
     Returns:
         List: Jenis kain yang direkomendasikan
     """
