@@ -1,6 +1,5 @@
-# main.py
-from ui import OptimasiApp
+import streamlit as st
+import ui
 
 if __name__ == "__main__":
-    app = OptimasiApp()
-    app.mainloop()
+    ui.run()

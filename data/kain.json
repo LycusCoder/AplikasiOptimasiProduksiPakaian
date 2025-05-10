@@ -1,0 +1,230 @@
+{
+  "Katun": {
+    "meter_per_ukuran": {
+      "Kecil (S)": 1.5,
+      "Menengah (M)": 2.0,
+      "Besar (L)": 2.5,
+      "Sangat Besar (XL)": 3.0
+    },
+    "harga_per_meter": 20000,
+    "keuntungan_per_pakaian": {
+      "Kecil (S)": 45000,
+      "Menengah (M)": 55000,
+      "Besar (L)": 65000,
+      "Sangat Besar (XL)": 75000
+    },
+    "elastisitas": "Rendah",
+    "rekomendasi_penggunaan": [
+      "Kemeja", "Baju santai", "Celana panjang", "T-Shirt", "Kaos polos"
+    ]
+  },
+  "Polyester": {
+    "meter_per_ukuran": {
+      "Kecil (S)": 1.2,
+      "Menengah (M)": 1.8,
+      "Besar (L)": 2.2,
+      "Sangat Besar (XL)": 2.8
+    },
+    "harga_per_meter": 15000,
+    "keuntungan_per_pakaian": {
+      "Kecil (S)": 35000,
+      "Menengah (M)": 45000,
+      "Besar (L)": 55000,
+      "Sangat Besar (XL)": 65000
+    },
+    "elastisitas": "Sedang",
+    "rekomendasi_penggunaan": [
+      "Seragam", "Jas", "Pakaian formal", "Jaket ringan"
+    ]
+  },
+  "Rayon": {
+    "meter_per_ukuran": {
+      "Kecil (S)": 1.4,
+      "Menengah (M)": 1.9,
+      "Besar (L)": 2.4,
+      "Sangat Besar (XL)": 2.9
+    },
+    "harga_per_meter": 18000,
+    "keuntungan_per_pakaian": {
+      "Kecil (S)": 40000,
+      "Menengah (M)": 50000,
+      "Besar (L)": 60000,
+      "Sangat Besar (XL)": 70000
+    },
+    "elastisitas": "Rendah",
+    "rekomendasi_penggunaan": [
+      "Dress", "Blus", "Atasan santai", "Rok midi"
+    ]
+  },
+  "Wool": {
+    "meter_per_ukuran": {
+      "Kecil (S)": 1.6,
+      "Menengah (M)": 2.1,
+      "Besar (L)": 2.6,
+      "Sangat Besar (XL)": 3.1
+    },
+    "harga_per_meter": 32000,
+    "keuntungan_per_pakaian": {
+      "Kecil (S)": 55000,
+      "Menengah (M)": 65000,
+      "Besar (L)": 75000,
+      "Sangat Besar (XL)": 85000
+    },
+    "elastisitas": "Rendah",
+    "rekomendasi_penggunaan": [
+      "Jas", "Jaket tebal", "Celana formal musim dingin", "Sweater"
+    ]
+  },
+  "Spandex": {
+    "meter_per_ukuran": {
+      "Kecil (S)": 1.0,
+      "Menengah (M)": 1.4,
+      "Besar (L)": 1.8,
+      "Sangat Besar (XL)": 2.2
+    },
+    "harga_per_meter": 23000,
+    "keuntungan_per_pakaian": {
+      "Kecil (S)": 50000,
+      "Menengah (M)": 60000,
+      "Besar (L)": 70000,
+      "Sangat Besar (XL)": 80000
+    },
+    "elastisitas": "Tinggi",
+    "rekomendasi_penggunaan": [
+      "Legging", "Baju olahraga", "Swimsuit", "Tank top"
+    ]
+  },
+  "Linen": {
+    "meter_per_ukuran": {
+      "Kecil (S)": 1.7,
+      "Menengah (M)": 2.2,
+      "Besar (L)": 2.7,
+      "Sangat Besar (XL)": 3.2
+    },
+    "harga_per_meter": 25000,
+    "keuntungan_per_pakaian": {
+      "Kecil (S)": 60000,
+      "Menengah (M)": 70000,
+      "Besar (L)": 80000,
+      "Sangat Besar (XL)": 90000
+    },
+    "elastisitas": "Rendah",
+    "rekomendasi_penggunaan": [
+      "Gaun", "Setelan ringan", "Kemeja premium", "Rok panjang"
+    ]
+  },
+  "Denim": {
+    "meter_per_ukuran": {
+      "Kecil (S)": 1.8,
+      "Menengah (M)": 2.3,
+      "Besar (L)": 2.8,
+      "Sangat Besar (XL)": 3.3
+    },
+    "harga_per_meter": 38000,
+    "keuntungan_per_pakaian": {
+      "Kecil (S)": 65000,
+      "Menengah (M)": 75000,
+      "Besar (L)": 85000,
+      "Sangat Besar (XL)": 95000
+    },
+    "elastisitas": "Rendah hingga Sedang",
+    "rekomendasi_penggunaan": [
+      "Jeans", "Rok denim", "Jaket jeans", "Overalls"
+    ]
+  },
+  "Silk": {
+    "meter_per_ukuran": {
+      "Kecil (S)": 1.3,
+      "Menengah (M)": 1.8,
+      "Besar (L)": 2.3,
+      "Sangat Besar (XL)": 2.8
+    },
+    "harga_per_meter": 45000,
+    "keuntungan_per_pakaian": {
+      "Kecil (S)": 90000,
+      "Menengah (M)": 100000,
+      "Besar (L)": 110000,
+      "Sangat Besar (XL)": 120000
+    },
+    "elastisitas": "Sedang",
+    "rekomendasi_penggunaan": [
+      "Pashmina", "Blus mewah", "Dasi", "Gaun malam"
+    ]
+  },
+  "Chiffon": {
+    "meter_per_ukuran": {
+      "Kecil (S)": 1.2,
+      "Menengah (M)": 1.7,
+      "Besar (L)": 2.2,
+      "Sangat Besar (XL)": 2.7
+    },
+    "harga_per_meter": 30000,
+    "keuntungan_per_pakaian": {
+      "Kecil (S)": 70000,
+      "Menengah (M)": 80000,
+      "Besar (L)": 90000,
+      "Sangat Besar (XL)": 100000
+    },
+    "elastisitas": "Rendah",
+    "rekomendasi_penggunaan": [
+      "Rok plisket", "Atasan pesta", "Scarf ringan"
+    ]
+  },
+  "Velvet": {
+    "meter_per_ukuran": {
+      "Kecil (S)": 1.8,
+      "Menengah (M)": 2.3,
+      "Besar (L)": 2.8,
+      "Sangat Besar (XL)": 3.3
+    },
+    "harga_per_meter": 55000,
+    "keuntungan_per_pakaian": {
+      "Kecil (S)": 95000,
+      "Menengah (M)": 105000,
+      "Besar (L)": 115000,
+      "Sangat Besar (XL)": 125000
+    },
+    "elastisitas": "Rendah",
+    "rekomendasi_penggunaan": [
+      "Blazer", "Gaun pesta", "Jaket mewah"
+    ]
+  },
+  "Canvas": {
+    "meter_per_ukuran": {
+      "Kecil (S)": 2.0,
+      "Menengah (M)": 2.5,
+      "Besar (L)": 3.0,
+      "Sangat Besar (XL)": 3.5
+    },
+    "harga_per_meter": 40000,
+    "keuntungan_per_pakaian": {
+      "Kecil (S)": 80000,
+      "Menengah (M)": 90000,
+      "Besar (L)": 100000,
+      "Sangat Besar (XL)": 110000
+    },
+    "elastisitas": "Rendah",
+    "rekomendasi_penggunaan": [
+      "Tas kanvas", "Jak vest", "Apron"
+    ]
+  },
+  "Leather": {
+    "meter_per_ukuran": {
+      "Kecil (S)": 2.2,
+      "Menengah (M)": 2.7,
+      "Besar (L)": 3.2,
+      "Sangat Besar (XL)": 3.7
+    },
+    "harga_per_meter": 120000,
+    "keuntungan_per_pakaian": {
+      "Kecil (S)": 150000,
+      "Menengah (M)": 160000,
+      "Besar (L)": 170000,
+      "Sangat Besar (XL)": 180000
+    },
+    "elastisitas": "Rendah",
+    "rekomendasi_penggunaan": [
+      "Jaket kulit", "Rompi kulit", "Aksesoris"
+    ]
+  }
+}
